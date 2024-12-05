@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Demo Socket.IO</title>
+    <script src="/socket.io/socket.io.js"></script>
+    <style>
+        #messages {
+            height: 300px;
+            overflow-y: auto;
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin-bottom: 10px;
+        }
+        .message {
+            margin: 5px 0;
+            padding: 5px;
+            background-color: #f0f0f0;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div id="messages"></div>
+    <div style="display: flex; gap: 10px;">
+        <input type="text" id="messageInput" placeholder="Nhập tin nhắn..." style="flex: 1;">
+        <button onclick="sendMessage()">Gửi</button>
+    </div>
+
+    <script>
+        const socket = io();
+        const messagesDiv = document.getElementById('messages');
+        const messageInput = document.getElementById('messageInput');
+
+        // Xử lý khi nhận được tin nhắn
+        socket.on('receive_message', (data) => {
+            const messageElement = document.createElement('div');
+            messageElement.className = 'message';
+            messageElement.textContent = `${data.userId}: ${data.message}`;
+            messagesDiv.appendChild(messageElement);
+            messagesDiv.scrollTop = messagesDiv.scrollHeight;
+        });
+
+        // Hàm gửi tin nhắn
+        function sendMessage() {
+            const message = messageInput.value;
+            if (message.trim()) {
+                socket.emit('send_message', { message });
+                messageInput.value = '';
+            }
+        }
+
+        // Xử lý phím Enter
+        messageInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                sendMessage();
+            }
+        });
+
+        // Thông báo khi kết nối thành công
+        socket.on('connect', () => {
+            console.log('Đã kết nối với server!');
+        });
+
+        // Thông báo khi mất kết nối
+        socket.on('disconnect', () => {
+            console.log('Mất kết nối với server!');
+        });
+    </script>
+</body>
+</html> 

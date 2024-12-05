@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Socket Server Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100">
+    <div class="min-h-screen">
+        <nav class="bg-white shadow-lg">
+            <div class="max-w-6xl mx-auto px-4">
+                <div class="flex justify-between items-center py-4">
+                    <h1 class="text-xl font-bold">Socket Server Dashboard</h1>
+                    <button onclick="logout()" class="text-red-500 hover:text-red-700">Đăng xuất</button>
+                </div>
+            </div>
+        </nav>
+
+        <main class="max-w-6xl mx-auto mt-8 px-4">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Server Status -->
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                    <h2 class="text-lg font-bold mb-4">Trạng thái Server</h2>
+                    <div id="serverStatus" class="text-green-500 font-semibold">Đang chạy</div>
+                    <div id="connectedClients" class="mt-2">Clients đang kết nối: 0</div>
+                </div>
+
+                <!-- Server Config -->
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                    <h2 class="text-lg font-bold mb-4">Cấu hình Server</h2>
+                    <div class="mb-4">
+                        <label class="block text-gray-700 text-sm font-bold mb-2">CORS Origins</label>
+                        <input type="text" id="corsOrigins" class="w-full px-3 py-2 border rounded-lg">
+                    </div>
+                    <button onclick="updateConfig()" class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600">
+                        Cập nhật
+                    </button>
+                </div>
+
+                <!-- Connection Logs -->
+                <div class="bg-white p-6 rounded-lg shadow-md md:col-span-2">
+                    <h2 class="text-lg font-bold mb-4">Logs</h2>
+                    <div id="logs" class="h-64 overflow-y-auto bg-gray-50 p-4 rounded-lg">
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        let socket;
+        
+        // Kiểm tra authentication
+        function checkAuth() {
+            const token = localStorage.getItem('admin_token');
+            if (!token) {
+                window.location.href = '/admin/index.html';
+            }
+            return token;
+        }
+
+        // Kết nối socket với quyền admin
+        function connectAdminSocket(token) {
+            socket = io({
+                auth: {
+                    token: token
+                }
+            });
+            
+            socket.on('connect', () => {
+                console.log('Admin socket connected');
+            });
+            
+            socket.on('clients_count', (count) => {
+                document.getElementById('connectedClients').textContent = `Clients đang kết nối: ${count}`;
+            });
+        }
+
+        // Khởi tạo dashboard
+        async function initDashboard() {
+            const token = checkAuth();
+            
+            try {
+                // Lấy thông tin cấu hình
+                const response = await fetch('/api/admin/config', {
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    }
+                });
+                const config = await response.json();
+                
+                document.getElementById('corsOrigins').value = config.corsOrigins.join(', ');
+                document.getElementById('connectedClients').textContent = `Clients đang kết nối: ${config.connectedClients}`;
+                
+                // Kết nối socket với quyền admin
+                connectAdminSocket(token);
+            } catch (error) {
+                console.error('Error:', error);
+            }
+        }
+
+        // Cập nhật cấu hình
+        async function updateConfig() {
+            const token = checkAuth();
+            const corsOrigins = document.getElementById('corsOrigins').value.split(',').map(origin => origin.trim());
+            
+            try {
+                const response = await fetch('/api/admin/config', {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ corsOrigins })
+                });
+                
+                const result = await response.json();
+                if (result.success) {
+                    alert('Cập nhật thành công!');
+                }
+            } catch (error) {
+                alert('Có lỗi xảy ra!');
+            }
+        }
+
+        // Đăng xuất
+        function logout() {
+            localStorage.removeItem('admin_token');
+            window.location.href = '/admin/index.html';
+        }
+
+        // Khởi tạo khi trang load
+        window.onload = initDashboard;
+    </script>
+</body>
+</html> 
