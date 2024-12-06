@@ -13,7 +13,11 @@
     "monit": "pm2 monit",
     "test": "mocha tests/**/*.test.js",
     "lint": "eslint src/**/*.js",
-    "format": "prettier --write ."
+    "format": "prettier --write .",
+    "docs": "jsdoc -c jsdoc.json",
+    "test:coverage": "jest --coverage",
+    "test:e2e": "jest --config jest.e2e.config.js",
+    "prepare": "husky install"
   },
   "keywords": [
     "socket.io",
@@ -38,6 +42,11 @@
     "eslint": "^8.5.0",
     "prettier": "^2.5.1",
     "nodemon": "^2.0.15",
-    "socket.io-client": "^4.4.1"
+    "socket.io-client": "^4.4.1",
+    "jsdoc": "^3.6.7",
+    "jest": "^27.4.7",
+    "husky": "^7.0.4",
+    "supertest": "^6.1.6",
+    "eslint-config-prettier": "^8.3.0"
   }
 }

@@ -83,3 +83,9 @@ socket.io-client/
 
 # GitLab CI
 # Keep .gitlab-ci.yml for GitLab CI/CD
+
+# Documentation
+docs/
+coverage/
+.husky/
+.vscode/
