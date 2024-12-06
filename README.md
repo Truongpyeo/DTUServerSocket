@@ -1,4 +1,4 @@
-# Socket Server Dashboard v1.0.0
+# Socket Server Dashboard v2.1.0
 
 ## Tính năng chính
 - Giám sát kết nối Socket.IO realtime
