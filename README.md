@@ -71,8 +71,27 @@ ADMIN_PASSWORD=your_password
 
 5. Khởi động server:
 
+### Development
 ```bash
 npm start
+```
+
+### Production với PM2
+```bash
+# Khởi động server
+npm run prod
+
+# Xem logs
+npm run logs
+
+# Giám sát server
+npm run monit
+
+# Restart server
+npm run restart
+
+# Dừng server
+npm run stop
 ```
 
 ## Cấu trúc project
