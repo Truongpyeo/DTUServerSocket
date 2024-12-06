@@ -1,0 +1,19 @@
+image: node:14
+
+stages:
+  - test
+  - deploy
+
+test:
+  stage: test
+  script:
+    - npm install
+    - npm test
+    - npm run lint
+
+deploy:
+  stage: deploy
+  script:
+    - echo "Add deployment steps here"
+  only:
+    - main 

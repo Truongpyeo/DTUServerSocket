@@ -77,4 +77,7 @@ npm-debug.log*
 .netlify
 
 # Socket.IO specific
-socket.io-client/ 
+socket.io-client/
+
+# GitLab CI
+# Keep .gitlab-ci.yml for GitLab CI/CD

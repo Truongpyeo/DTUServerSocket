@@ -3,6 +3,8 @@
 ![GitHub Workflow Status](https://img.shields.io/github/workflow/status/dtudz/socket-server-dashboard/CI)
 ![License](https://img.shields.io/badge/license-MIT-blue.svg)
 ![Node Version](https://img.shields.io/node/v/socket-server-dashboard)
+[![GitHub](https://img.shields.io/badge/GitHub-Repository-black.svg)](https://github.com/Truongpyeo/DTUServerSocket)
+[![GitLab Mirror](https://img.shields.io/badge/GitLab-Mirror-orange.svg)](https://gitlab.com/your-gitlab-username/DTUServerSocket)
 
 Một hệ thống quản lý và giám sát kết nối Socket.IO với giao diện quản trị trực quan.
 
@@ -43,7 +45,7 @@ Một hệ thống quản lý và giám sát kết nối Socket.IO với giao di
 1. Clone repository:
 
 ```bash
-git clone <repository_url>
+git clone git@github.com:Truongpyeo/DTUServerSocket.git
 ```
 
 2. Cài đặt dependencies:
