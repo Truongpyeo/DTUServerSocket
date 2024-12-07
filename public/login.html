@@ -56,14 +56,12 @@
                     localStorage.setItem('adminToken', data.token);
                     window.location.href = '/dashboard.html';
                 } else {
-                    errorMessage.textContent = data.error || 'Đăng nhập thất bại!';
-                    errorMessage.style.display = 'block';
+                    alert('Login failed: ' + (data.error || 'Unknown error'));
                 }
             })
             .catch(error => {
-                console.error('Error:', error);
-                errorMessage.textContent = 'Có lỗi xảy ra khi đăng nhập';
-                errorMessage.style.display = 'block';
+                console.error('Login error:', error);
+                alert('Login failed: ' + error.message);
             });
         }
 
