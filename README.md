@@ -2,12 +2,8 @@
 
 ## 🌟 Giới Thiệu
  
-Socket.io Service là một service cho nền tảng AppSmith
+Socket.io Service là một service được phát triển bằng SocketIO, có thể tích hợp cho nhiều nền tảng
  
- 
- Bạn có thể xem thêm thông tin tại
- -  GITHUB : [Socket.io Service](https://github.com/Truongpyeo/DTUAppSmithMap)
- -  NPM : [Socket.io Service](https://www.npmjs.com/package/dtuappsmithmap)
 ## 🏆 Bối Cảnh
 Service được phát triển như một phần của ứng dụng trong cuộc thi Mã Nguồn Mở năm 2024.
 
@@ -40,6 +36,10 @@ Xem hướng dẫn chi tiết tại [Setup](docs/setup.md)
 - **Sửa lỗi hiển thị thời gian kết nối**: Cải thiện độ chính xác của thông tin thời gian kết nối hiển thị trên dashboard.
 
 ## Hướng dẫn cài đặt
+- **Clone source code về**: 
+```
+  git clone https://github.com/Truongpyeo/DTUServerSocket.git
+```
 
  
 
