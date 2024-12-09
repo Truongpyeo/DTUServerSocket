@@ -26,8 +26,6 @@ Service được phát triển như một phần của ứng dụng trong cuộc
 - Testing framework
 - CI/CD pipeline
 
-## Cài đặt
-Xem hướng dẫn chi tiết tại [Setup](docs/setup.md)
 
 - **Tái cấu trúc project**: Cấu trúc mã nguồn được tổ chức lại nhằm nâng cao khả năng bảo trì và mở rộng.
 
